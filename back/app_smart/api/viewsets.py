@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from rest_framework import generics, viewsets
 from app_smart.api import serializers
 from rest_framework.permissions import IsAdminUser, IsAuthenticated, AllowAny
-from ..models import Sensor, TemperaturaData, ContadorData
+from ..models import Sensor, TemperaturaData, ContadorData, UmidadeData, LuminosidadeData
 from app_smart.api.filters import SensorFilter	
 from django_filters.rest_framework import DjangoFilterBackend
-from .serializers import TemperaturaDataSerializer, ContadorDataSerializer
+from .serializers import TemperaturaDataSerializer, ContadorDataSerializer, UmidadeDataSerializer, LuminosidadeDataSerializer
  
 class CreateUserAPIViewSet(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -40,4 +40,21 @@ class ContadorDataViewSet(viewsets.ModelViewSet):
 class ContadorDataList(generics.ListAPIView):
     queryset = ContadorData.objects.all()
     serializer_class = ContadorDataSerializer
+
+class UmidadeDataViewSet(viewsets.ModelViewSet):
+    queryset = UmidadeData.objects.all()
+    serializer_class = serializers.UmidadeDataSerializer
+
+class UmidadeDataList(generics.ListAPIView):
+    queryset = UmidadeData.objects.all()
+    serializer_class = UmidadeDataSerializer
+
+class LuminosidadeDataViewSet(viewsets.ModelViewSet):
+    queryset = LuminosidadeData.objects.all()
+    serializer_class = serializers.LuminosidadeDataSerializer
+
+class LuminosidadeDataList(generics.ListAPIView):
+    queryset = LuminosidadeData.objects.all()
+    serializer_class = LuminosidadeDataSerializer
+
     

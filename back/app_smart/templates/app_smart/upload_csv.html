@@ -45,6 +45,20 @@
         {{ form_contador.as_p }}
         <button type="submit">Enviar CSV do Contador</button>
     </form> 
+
+    <h1>Upload de Arquivo csv de Umidade</h1>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'umidade_data' %}">
+        {% csrf_token %}
+        {{ form_umidade.as_p }}
+        <button type="submit">Enviar CSV de Umidade</button>
+    </form> 
+
+    <h1>Upload de Arquivo csv de Luminosidade</h1>
+    <form method="POST" enctype="multipart/form-data" action="{% url 'luminosidade_data' %}">
+        {% csrf_token %}
+        {{ form_luminosidade.as_p }}
+        <button type="submit">Enviar CSV de Luminosidade</button>
+    </form> 
     
 
 </body>

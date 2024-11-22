@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
-from app_smart.models import Sensor, TemperaturaData, ContadorData
+from app_smart.models import Sensor, TemperaturaData, ContadorData, UmidadeData, LuminosidadeData
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True) 
@@ -39,6 +39,20 @@ class ContadorDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ContadorData
+        fields = '__all__'
+
+class UmidadeDataSerializer(serializers.ModelSerializer):
+    sensor = SensorSerializer(read_only=True)
+
+    class Meta:
+        model = UmidadeData
+        fields = '__all__'
+
+class LuminosidadeDataSerializer(serializers.ModelSerializer):
+    sensor = SensorSerializer(read_only=True)
+
+    class Meta:
+        model = LuminosidadeData
         fields = '__all__'
 
 

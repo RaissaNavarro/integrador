@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .forms import CSVUploadForm, CSVUploadTemp, CSVUploadCont
+from .forms import CSVUploadForm, CSVUploadTemp, CSVUploadCont, CSVUploadUmid, CSVUploadLumi
 from .models import Sensor
 
 import csv 
@@ -9,7 +9,7 @@ from dateutil import parser
 import pytz 
 import os 
 import django
-from app_smart.models import TemperaturaData, Sensor, ContadorData
+from app_smart.models import TemperaturaData, Sensor, ContadorData, UmidadeData, LuminosidadeData
 
 
 def abre_index(request):
@@ -137,11 +137,98 @@ def load_contador_data(request):
 
 
 
+def load_umidade_data(request):
+    if request.method == 'POST':
+        form = CSVUploadUmid(request.POST, request.FILES)
+        
+        if form.is_valid():
+            csv_file = request.FILES['file']
+            
+  
+            if not csv_file.name.endswith('.csv'):
+                form.add_error('file', 'Este não é um arquivo CSV válido.')
+            else:
+
+                file_data = csv_file.read().decode('ISO-8859-1').splitlines()
+                reader = csv.DictReader(file_data, delimiter=',') 
+                
+                for row in reader:
+                    try:
+                        sensor_id = int(row['sensor_id'])      
+                        valor = float(row['valor'])   
+                        timestamp = parser.parse(row['timestamp'])  
+
+                        try:
+                            sensor_instance = Sensor.objects.get(id=sensor_id)
+                        except Sensor.DoesNotExist:
+                            print(f"Sensor com ID {sensor_id} não encontrado. Pulando a linha: {row}")
+                            continue 
+                        
+                        UmidadeData.objects.create(
+                            sensor=sensor_instance,  # Atribuindo a instância do Sensor
+                            valor=valor, 
+                            timestamp=timestamp
+                        )    
+                    except KeyError as e:
+                        print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
+                
+
+    else:
+        form = CSVUploadUmid()
+
+    return render(request, 'app_smart/upload_csv.html', {'form': form})
+
+
+def load_luminosidade_data(request):
+    if request.method == 'POST':
+        form = CSVUploadLumi(request.POST, request.FILES)
+        
+        if form.is_valid():
+            csv_file = request.FILES['file']
+            
+  
+            if not csv_file.name.endswith('.csv'):
+                form.add_error('file', 'Este não é um arquivo CSV válido.')
+            else:
+
+                file_data = csv_file.read().decode('ISO-8859-1').splitlines()
+                reader = csv.DictReader(file_data, delimiter=',') 
+                
+                for row in reader:
+                    try:
+                        sensor_id = int(row['sensor_id'])
+                        valor = float(row['valor'])         
+                        timestamp = parser.parse(row['timestamp'])  
+
+                        try:
+                            sensor_instance = Sensor.objects.get(id=sensor_id)
+                        except Sensor.DoesNotExist:
+                            print(f"Sensor com ID {sensor_id} não encontrado. Pulando a linha: {row}")
+                            continue 
+                        
+                        LuminosidadeData.objects.create(
+                            sensor=sensor_instance,  
+                            valor=valor,
+                            timestamp=timestamp
+                        )    
+                    except KeyError as e:
+                        print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
+                
+
+    else:
+        form = CSVUploadLumi()
+
+    return render(request, 'app_smart/upload_csv.html', {'form': form})
+
+
+
 def upload_csv_view_test(request):
     if request.method == 'POST':
         form = CSVUploadForm(request.POST, request.FILES)
         form_temperature = CSVUploadTemp(request.POST, request.FILES)
         form_contador = CSVUploadCont(request.POST, request.FILES)
+        form_umidade = CSVUploadUmid(request.POST, request.FILES)
+        form_luminosidade = CSVUploadLumi(request.POST, request.FILES)
         
         if form.is_valid():
             csv_file = request.FILES['file']
@@ -151,14 +238,22 @@ def upload_csv_view_test(request):
             # Código existente para processar CSV de temperatura...
         elif form_contador.is_valid():
             csv_file = request.FILES['file']
+        elif form_umidade.is_valid():
+            csv_file = request.FILES['file']
+        elif form_luminosidade.is_valid():
+            csv_file = request.FILES['file']
         else:
             form = CSVUploadForm()
             form_temperature = CSVUploadTemp()
             form_contador = CSVUploadCont()
+            form_umidade = CSVUploadUmid()
+            form_luminosidade = CSVUploadLumi()
 
     else:
         form = CSVUploadForm()
         form_temperature = CSVUploadTemp()
         form_contador = CSVUploadCont()
+        form_umidade = CSVUploadUmid()
+        form_luminosidade = CSVUploadLumi()
 
-    return render(request, 'app_smart/upload_csv.html', {'form_sensors': form, 'form_temperature': form_temperature, 'form_contador': form_contador})
+    return render(request, 'app_smart/upload_csv.html', {'form_sensors': form, 'form_temperature': form_temperature, 'form_contador': form_contador, 'form_umidade': form_umidade, 'form_luminosidade': form_luminosidade })
