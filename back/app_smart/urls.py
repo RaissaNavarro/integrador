@@ -34,7 +34,7 @@ urlpatterns = [
  path('api/umi/', load_umidade_data, name = 'umidade_data'),
  path('api/umidade/', UmidadeDataList.as_view(), name ='umidade'),
  path('api/lumi/', load_luminosidade_data, name = 'luminosidade_data'),
- path('api/luminosidade/', LuminosidadeDataList.as_view(), name ='luminosidade'),
+ path('api/luminosidade/', LuminosidadeDataList.as_view(), name ='luminosidade'), #url para todas os sensores
 
 
 ]
