@@ -53,7 +53,9 @@ const Login = () => {
       </div>
       <div className="right-section">
       <form className="form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <div className="sing-in">
+          <h2>Login</h2>
+        </div>
         {errorMessage && <p className="error">{errorMessage}</p>}
         {successMessage && <p className="success">{successMessage}</p>}
         <input
@@ -79,6 +81,7 @@ const Login = () => {
             Cadastre-se
           </a>
         </p>
+
       </form>
       </div>
     </div>
