@@ -4,145 +4,40 @@ import ApexCharts from "apexcharts";
 const ChartComponent = () => {
 
   useEffect(() => {
+    
 
     const options = {
-
-      series: [
-
-        {
-
-          name: "Sensor Temperatura",
-
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
-
-        },
-
-        {
-
-          name: "Sensor Contador",
-
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
-
-        },
-
-        {
-
-          name: "Sensor Umidade",
-
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
-
-        },
-
-        {
-
-            name: "Sensor Luminosidade",
-
-            data: [31, 45, 33, 28, 41, 51, 49, 58, 43],
-
-          },
-
-      ],
-
+      series: [{
+      name: 'Temperatura',
+      data: [31, 40, 28, 51, 42, 109, 100]
+    }, {
+      name: 'Umidade',
+      data: [11, 32, 45, 32, 34, 52, 41]
+    }],
       chart: {
-
-        type: "bar",
-
-        height: 350,
-
+      height: 350,
+      type: 'area'
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      curve: 'smooth'
+    },
+    xaxis: {
+      type: 'datetime',
+      categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+    },
+    tooltip: {
+      x: {
+        format: 'dd/MM/yy HH:mm'
       },
-
-      plotOptions: {
-
-        bar: {
-
-          horizontal: false,
-
-          columnWidth: "75%",
-
-          endingShape: "rounded",
-
-        },
-
-      },
-
-      dataLabels: {
-
-        enabled: false,
-
-      },
-
-      stroke: {
-
-        show: true,
-
-        width: 2,
-
-        colors: ["transparent"],
-
-      },
-
-      xaxis: {
-
-        categories: [
-
-          "Feb",
-
-          "Mar",
-
-          "Apr",
-
-          "May",
-
-          "Jun",
-
-          "Jul",
-
-          "Aug",
-
-          "Sep",
-
-          "Oct",
-
-        ],
-
-      },
-
-      yaxis: {
-
-        title: {
-
-          text: "Sensores",
-
-        },
-
-      },
-
-      fill: {
-
-        opacity: 1,
-
-      },
-
-      tooltip: {
-
-        y: {
-
-          formatter: function () {
-
-            return "Sensores " + " usados";
-
-          },
-
-        },
-
-      },
-
+    },
     };
- 
+    
     const chart = new ApexCharts(document.querySelector("#chart"), options);
-
     chart.render();
- 
+    
     return () => chart.destroy();
 
   }, []);
@@ -169,5 +64,8 @@ const ChartComponent = () => {
  
  
 export default ChartComponent;
+
+
+
 
  
