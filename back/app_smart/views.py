@@ -72,21 +72,17 @@ def load_temperature_data(request):
                 
                 for row in reader:
                     try:
-                        sensor_id = int(row['sensor_id'])             
-                        valor = float(row['valor'])
-                        timestamp = parser.parse(row['timestamp'])  
-
-                        try:
-                            sensor_instance = Sensor.objects.get(id=sensor_id)
-                        except Sensor.DoesNotExist:
-                            print(f"Sensor com ID {sensor_id} não encontrado. Pulando a linha: {row}")
-                            continue  # Pule para a próxima iteração se o sensor não existir
-                        
-                        TemperaturaData.objects.create(
-                            sensor=sensor_instance,  # Atribuindo a instância do Sensor
-                            valor=valor, 
-                            timestamp=timestamp
-                        )    
+                        Sensor.objects.create(
+                            tipo=row['tipo'],
+                            unidade_medida=row['unidade_medida'] if row['unidade_medida'] else None,
+                            latitude=float(row['latitude'].replace(',', '.')),
+                            longitude=float(row['longitude'].replace(',', '.')),
+                            localizacao=row['localizacao'],
+                            responsavel=row['responsavel'] if row['responsavel'] else '',
+                            status_operacional=True if row['status_operacional'] == 'True' else False,
+                            observacao=row['observacao'] if row['observacao'] else '',
+                            mac_address=row['mac_address'] if row['mac_address'] else None
+                        )
                     except KeyError as e:
                         print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
                 
@@ -103,29 +99,27 @@ def load_contador_data(request):
         if form.is_valid():
             csv_file = request.FILES['file']
             
-  
+            # Verifica se o arquivo tem a extensão correta
             if not csv_file.name.endswith('.csv'):
                 form.add_error('file', 'Este não é um arquivo CSV válido.')
             else:
-
+                # Processa o arquivo CSV
                 file_data = csv_file.read().decode('ISO-8859-1').splitlines()
-                reader = csv.DictReader(file_data, delimiter=',') 
+                reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
                 
                 for row in reader:
                     try:
-                        sensor_id = int(row['sensor_id'])             
-                        timestamp = parser.parse(row['timestamp'])  
-
-                        try:
-                            sensor_instance = Sensor.objects.get(id=sensor_id)
-                        except Sensor.DoesNotExist:
-                            print(f"Sensor com ID {sensor_id} não encontrado. Pulando a linha: {row}")
-                            continue 
-                        
-                        ContadorData.objects.create(
-                            sensor=sensor_instance,  
-                            timestamp=timestamp
-                        )    
+                        Sensor.objects.create(
+                            tipo=row['tipo'],
+                            unidade_medida=row['unidade_medida'] if row['unidade_medida'] else None,
+                            latitude=float(row['latitude'].replace(',', '.')),
+                            longitude=float(row['longitude'].replace(',', '.')),
+                            localizacao=row['localizacao'],
+                            responsavel=row['responsavel'] if row['responsavel'] else '',
+                            status_operacional=True if row['status_operacional'] == 'True' else False,
+                            observacao=row['observacao'] if row['observacao'] else '',
+                            mac_address=row['mac_address'] if row['mac_address'] else None
+                        )
                     except KeyError as e:
                         print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
                 
@@ -144,31 +138,27 @@ def load_umidade_data(request):
         if form.is_valid():
             csv_file = request.FILES['file']
             
-  
+            # Verifica se o arquivo tem a extensão correta
             if not csv_file.name.endswith('.csv'):
                 form.add_error('file', 'Este não é um arquivo CSV válido.')
             else:
-
+                # Processa o arquivo CSV
                 file_data = csv_file.read().decode('ISO-8859-1').splitlines()
-                reader = csv.DictReader(file_data, delimiter=',') 
+                reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
                 
                 for row in reader:
                     try:
-                        sensor_id = int(row['sensor_id'])      
-                        valor = float(row['valor'])   
-                        timestamp = parser.parse(row['timestamp'])  
-
-                        try:
-                            sensor_instance = Sensor.objects.get(id=sensor_id)
-                        except Sensor.DoesNotExist:
-                            print(f"Sensor com ID {sensor_id} não encontrado. Pulando a linha: {row}")
-                            continue 
-                        
-                        UmidadeData.objects.create(
-                            sensor=sensor_instance,  # Atribuindo a instância do Sensor
-                            valor=valor, 
-                            timestamp=timestamp
-                        )    
+                        Sensor.objects.create(
+                            tipo=row['tipo'],
+                            unidade_medida=row['unidade_medida'] if row['unidade_medida'] else None,
+                            latitude=float(row['latitude'].replace(',', '.')),
+                            longitude=float(row['longitude'].replace(',', '.')),
+                            localizacao=row['localizacao'],
+                            responsavel=row['responsavel'] if row['responsavel'] else '',
+                            status_operacional=True if row['status_operacional'] == 'True' else False,
+                            observacao=row['observacao'] if row['observacao'] else '',
+                            mac_address=row['mac_address'] if row['mac_address'] else None
+                        )
                     except KeyError as e:
                         print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
                 
@@ -185,34 +175,30 @@ def load_luminosidade_data(request):
         
         if form.is_valid():
             csv_file = request.FILES['file']
+        
+        # Verifica se o arquivo tem a extensão correta
+        if not csv_file.name.endswith('.csv'):
+            form.add_error('file', 'Este não é um arquivo CSV válido.')
+        else:
+            # Processa o arquivo CSV
+            file_data = csv_file.read().decode('ISO-8859-1').splitlines()
+            reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
             
-  
-            if not csv_file.name.endswith('.csv'):
-                form.add_error('file', 'Este não é um arquivo CSV válido.')
-            else:
-
-                file_data = csv_file.read().decode('ISO-8859-1').splitlines()
-                reader = csv.DictReader(file_data, delimiter=',') 
-                
-                for row in reader:
-                    try:
-                        sensor_id = int(row['sensor_id'])
-                        valor = float(row['valor'])         
-                        timestamp = parser.parse(row['timestamp'])  
-
-                        try:
-                            sensor_instance = Sensor.objects.get(id=sensor_id)
-                        except Sensor.DoesNotExist:
-                            print(f"Sensor com ID {sensor_id} não encontrado. Pulando a linha: {row}")
-                            continue 
-                        
-                        LuminosidadeData.objects.create(
-                            sensor=sensor_instance,  
-                            valor=valor,
-                            timestamp=timestamp
-                        )    
-                    except KeyError as e:
-                        print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
+            for row in reader:
+                try:
+                    Sensor.objects.create(
+                        tipo=row['tipo'],
+                        unidade_medida=row['unidade_medida'] if row['unidade_medida'] else None,
+                        latitude=float(row['latitude'].replace(',', '.')),
+                        longitude=float(row['longitude'].replace(',', '.')),
+                        localizacao=row['localizacao'],
+                        responsavel=row['responsavel'] if row['responsavel'] else '',
+                        status_operacional=True if row['status_operacional'] == 'True' else False,
+                        observacao=row['observacao'] if row['observacao'] else '',
+                        mac_address=row['mac_address'] if row['mac_address'] else None
+                    )
+                except KeyError as e:
+                    print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
                 
 
     else:
