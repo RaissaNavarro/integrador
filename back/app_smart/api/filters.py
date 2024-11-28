@@ -39,3 +39,4 @@ class SensorFilterView(APIView):
         queryset = Sensor.objects.filter(filters)
         serializer = serializers.SensorSerializer(queryset, many=True)
         return Response(serializer.data)
+    
