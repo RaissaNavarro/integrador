@@ -5,6 +5,7 @@ import ApexCharts from 'apexcharts'
 import Cont from "../../componentes/Cont"
 import { Link } from "react-router-dom";
 
+
 const Contador = () => {
   const [contador, setContador] = useState([]);
   const [error, setError] = useState("");
@@ -73,6 +74,12 @@ const Contador = () => {
           </tbody>
         </table>
       </div>
+      <div className="title">
+          <h1>Informações em Gráfico</h1>
+        </div>
+      <section className="chart-container">
+        < Cont/>
+      </section>
     </div>
   );
 };

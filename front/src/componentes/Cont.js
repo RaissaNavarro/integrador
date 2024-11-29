@@ -1,4 +1,3 @@
-// components/ChartComponent.js
 import React, { useEffect } from "react";
 import axios from "axios";
 import ApexCharts from "apexcharts";
@@ -77,5 +76,6 @@ const ChartComponent = () => {
  
  
 export default ChartComponent;
+ 
  
  

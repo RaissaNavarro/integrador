@@ -32,7 +32,7 @@ const ChartComponent = () => {
         curve: 'straight'
       },
       title: {
-        text: 'Valores de Temperatura por Mês',
+        text: 'Product Trends by Month',
         align: 'left'
       },
       grid: {

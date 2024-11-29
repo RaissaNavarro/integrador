@@ -5,6 +5,7 @@ import ApexCharts from 'apexcharts'
 import Umi from "../../componentes/Umi"
 import { Link } from "react-router-dom";
 
+
 const Umidade = () => {
   const [umidade, setUmidade] = useState([]);
   const [error, setError] = useState("");
@@ -73,6 +74,12 @@ const Umidade = () => {
           </tbody>
         </table>
       </div>
+      <div className="title">
+          <h1>Informações em Gráfico</h1>
+        </div>
+      <section className="chart-container">
+        < Umi/>
+      </section>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import ApexCharts from 'apexcharts'
 import Temp from "../../componentes/Temp"
 import { Link } from "react-router-dom";
 
+
 const Temperatura = () => {
   const [temperatura, setTemperatura] = useState([]);
   const [error, setError] = useState("");
@@ -73,6 +74,12 @@ const Temperatura = () => {
           </tbody>
         </table>
       </div>
+      <div className="title">
+          <h1>Informações em Gráfico</h1>
+        </div>
+      <section className="chart-container">
+        < Temp/>
+      </section>
     </div>
   );
 };

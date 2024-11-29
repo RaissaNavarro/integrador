@@ -5,6 +5,7 @@ import ApexCharts from 'apexcharts'
 import Lumi from "../../componentes/Lumi"
 import { Link } from "react-router-dom";
 
+
 const Luminosidade = () => {
   const [luminosidade, setLuminosidade] = useState([]);
   const [error, setError] = useState("");
@@ -73,6 +74,12 @@ const Luminosidade = () => {
           </tbody>
         </table>
       </div>
+      <div className="title">
+          <h1>Informações em Gráfico</h1>
+        </div>
+      <section className="chart-container">
+        < Lumi/>
+      </section>
     </div>
   );
 };
