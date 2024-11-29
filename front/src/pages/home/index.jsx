@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "./index.css";
 import LogoImg from "../../images/Logo.png"
 import UserImg from "../../images/UserIcon.png"
-import ChartComponent from "../../componentes/chart.component";
 
 // Importando as imagens
 
@@ -85,10 +84,6 @@ const Home = () => {
                         <p>
                             O sensor de umidade mede a quantidade de vapor d’água no ar.
                         </p>
-                    </div>
-                    <div className="chart-container">
-                        <h2>Dados em Gráfico</h2>
-                        <ChartComponent />
                     </div>
                 </div>
             </main>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './temp.css';
 import ApexCharts from 'apexcharts'
+import Temp from "../../componentes/Temp"
 
 const Temperatura = () => {
   const [temperatura, setTemperatura] = useState([]);
@@ -31,9 +32,7 @@ const Temperatura = () => {
         <table className="table">
           <thead>
             <tr>
-              <th>Temperatura (°C)</th>
-              <th>Data de Registro</th>
-              <th>SensorID</th>
+              <th>Id</th>
               <th>Tipo</th>
               <th>Unid</th>
               <th>Latitude</th>
@@ -41,26 +40,39 @@ const Temperatura = () => {
               <th>Localização</th>
               <th>Responsável</th>
               <th>Status</th>
+              <th>Observação</th>
+              <th>Mac_address</th>
+              <th>Valor</th>
+              <th>Timestamp</th>
             </tr>
           </thead>
           <tbody>
             {temperatura.map((data) => (
               <tr key={data.id}>
-                <td>{data.valor.toFixed(2)}</td>
+                <td>{data.id}</td>
+                <td>{data.tipo}</td>
+                <td>{data.unidade_medida}</td>
+                <td>{data.latitude}</td>
+                <td>{data.longitude}</td>
+                <td>{data.localizacao}</td>
+                <td>{data.responsavel}</td>
+                <td>{data.status_operacional ? "Ativado" : "Desativado"}</td>
+                <td>{data.observacao}</td>
+                <td>{data.mac_address}</td>
+                <td>{data.valor}</td>
                 <td>{new Date(data.timestamp).toLocaleString()}</td>
-                <td>{data.sensor.id}</td>
-                <td>{data.sensor.tipo}</td>
-                <td>{data.sensor.unidade_medida}</td>
-                <td>{data.sensor.latitude}</td>
-                <td>{data.sensor.longitude}</td>
-                <td>{data.sensor.localizacao}</td>
-                <td>{data.sensor.responsavel}</td>
-                <td>{String(data.sensor.status_operacional)}</td>
+
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <div className="title">
+          <h1>Informações em Gráfico</h1>
+        </div>
+      <section className="chart-container">
+        < Temp/>
+      </section>
     </div>
   );
 };

@@ -1,9 +1,9 @@
 .table-container {
-  max-width: 80%;
+  max-width: 92%;
   margin: 15px auto; 
   overflow-y: auto; 
   overflow-x: hidden; 
-  max-height: 660px; 
+  max-height: 450px; 
   border: 1px solid #ccc; 
 }
 
@@ -45,4 +45,12 @@ tr:hover {
   font-weight: bold;
   font-size: 1em;
   margin-bottom: 10px;
+}
+
+/* Gráfico */
+.chart-container {
+  margin: 20px 100px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }

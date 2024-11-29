@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './umid.css';
 import ApexCharts from 'apexcharts'
+import Umi from "../../componentes/Umi"
 
 const Umidade = () => {
   const [umidade, setUmidade] = useState([]);
@@ -28,12 +29,10 @@ const Umidade = () => {
       </div>
       {error && <p className="error">{error}</p>}
       <div className="table-container">
-        <table className="table">
+      <table className="table">
           <thead>
             <tr>
-            <th>ID Umidade</th>
-              <th>Data de Registro</th>
-              <th>Sensor</th>
+              <th>Id</th>
               <th>Tipo</th>
               <th>Unid</th>
               <th>Latitude</th>
@@ -41,26 +40,39 @@ const Umidade = () => {
               <th>Localização</th>
               <th>Responsável</th>
               <th>Status</th>
+              <th>Observação</th>
+              <th>Mac_address</th>
+              <th>Valor</th>
+              <th>Timestamp</th>
             </tr>
           </thead>
           <tbody>
             {umidade.map((data) => (
               <tr key={data.id}>
-                <td>{data.sensor.id}</td>
+                <td>{data.id}</td>
+                <td>{data.tipo}</td>
+                <td>{data.unidade_medida}</td>
+                <td>{data.latitude}</td>
+                <td>{data.longitude}</td>
+                <td>{data.localizacao}</td>
+                <td>{data.responsavel}</td>
+                <td>{data.status_operacional ? "Ativado" : "Desativado"}</td>
+                <td>{data.observacao}</td>
+                <td>{data.mac_address}</td>
+                <td>{data.valor}</td>
                 <td>{new Date(data.timestamp).toLocaleString()}</td>
-                <td>null</td>
-                <td>{data.sensor.tipo}</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
+
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      <div className="title">
+          <h1>Informações em Gráfico</h1>
+        </div>
+      <section className="chart-container">
+        < Umi/>
+      </section>
     </div>
   );
 };
