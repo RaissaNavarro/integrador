@@ -29,18 +29,19 @@ class TemperaturaData(models.Model):
         ('Contador', 'Contador'),
         ('Luminosidade', 'Luminosidade'),
     ]
-    tipo = models.CharField(max_length=50, choices=TIPOS_SENSOR_CHOICES, null=True)     
+    tipo = models.CharField(max_length=50, choices=TIPOS_SENSOR_CHOICES, null=True)  
     unidade_medida = models.CharField(max_length=20, blank=True, null=True)
-    latitude = models.FloatField(null=True)     
+    latitude = models.FloatField(null=True)    
     longitude = models.FloatField(null=True)
-    localizacao = models.CharField(max_length=100, null=True)     
+    localizacao = models.CharField(max_length=100,null=True)    
     responsavel = models.CharField(max_length=100, null=True)
-    status_operacional = models.BooleanField(default=True, null=True)     
-    observacao = models.TextField(blank=True, null=True)     
+    status_operacional = models.BooleanField(default=True, null=True)    
+    observacao = models.TextField(blank=True, null=True)    
     mac_address = models.CharField(max_length=20, null=True)
-    
-    def __str__(self):         
-        return f"{self.tipo} - {self.localizacao}"
+    valor = models.FloatField(null=True)  
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)  
+    def __str__(self):        
+        return f"Temperatura: {self.valor} °C - {self.timestamp}"
     
 # Model para armazenar os dados de umidade 
 class UmidadeData(models.Model):     
@@ -50,18 +51,19 @@ class UmidadeData(models.Model):
         ('Contador', 'Contador'),
         ('Luminosidade', 'Luminosidade'),
     ]
-    tipo = models.CharField(max_length=50, choices=TIPOS_SENSOR_CHOICES, null=True)     
+    tipo = models.CharField(max_length=50, choices=TIPOS_SENSOR_CHOICES, null=True)  
     unidade_medida = models.CharField(max_length=20, blank=True, null=True)
-    latitude = models.FloatField(null=True)     
+    latitude = models.FloatField(null=True)    
     longitude = models.FloatField(null=True)
-    localizacao = models.CharField(max_length=100, null=True)     
+    localizacao = models.CharField(max_length=100,null=True)    
     responsavel = models.CharField(max_length=100, null=True)
-    status_operacional = models.BooleanField(default=True, null=True)     
-    observacao = models.TextField(blank=True, null=True)     
+    status_operacional = models.BooleanField(default=True, null=True)    
+    observacao = models.TextField(blank=True, null=True)    
     mac_address = models.CharField(max_length=20, null=True)
-    
-    def __str__(self):         
-        return f"{self.tipo} - {self.localizacao}"
+    valor = models.FloatField(null=True)  
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)  
+    def __str__(self):        
+        return f"Temperatura: {self.valor} °C - {self.timestamp}"
 
 # Model para armazenar os dados do contador 
 class ContadorData(models.Model):
@@ -71,18 +73,19 @@ class ContadorData(models.Model):
         ('Contador', 'Contador'),
         ('Luminosidade', 'Luminosidade'),
     ]
-    tipo = models.CharField(max_length=50, choices=TIPOS_SENSOR_CHOICES, null=True)     
+    tipo = models.CharField(max_length=50, choices=TIPOS_SENSOR_CHOICES, null=True)  
     unidade_medida = models.CharField(max_length=20, blank=True, null=True)
-    latitude = models.FloatField(null=True)     
+    latitude = models.FloatField(null=True)    
     longitude = models.FloatField(null=True)
-    localizacao = models.CharField(max_length=100, null=True)     
+    localizacao = models.CharField(max_length=100,null=True)    
     responsavel = models.CharField(max_length=100, null=True)
-    status_operacional = models.BooleanField(default=True, null=True)     
-    observacao = models.TextField(blank=True, null=True)     
+    status_operacional = models.BooleanField(default=True, null=True)    
+    observacao = models.TextField(blank=True, null=True)    
     mac_address = models.CharField(max_length=20, null=True)
-    
-    def __str__(self):         
-        return f"{self.tipo} - {self.localizacao}"
+    valor = models.FloatField(null=True)  
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)  
+    def __str__(self):        
+        return f"Temperatura: {self.valor} °C - {self.timestamp}"
     
 # Model para armazenar os dados de luminosidade 
 class LuminosidadeData(models.Model):     
@@ -92,17 +95,18 @@ class LuminosidadeData(models.Model):
         ('Contador', 'Contador'),
         ('Luminosidade', 'Luminosidade'),
     ]
-    tipo = models.CharField(max_length=50, choices=TIPOS_SENSOR_CHOICES, null=True)     
+    tipo = models.CharField(max_length=50, choices=TIPOS_SENSOR_CHOICES, null=True)  
     unidade_medida = models.CharField(max_length=20, blank=True, null=True)
-    latitude = models.FloatField(null=True)     
+    latitude = models.FloatField(null=True)    
     longitude = models.FloatField(null=True)
-    localizacao = models.CharField(max_length=100, null=True)     
+    localizacao = models.CharField(max_length=100,null=True)    
     responsavel = models.CharField(max_length=100, null=True)
-    status_operacional = models.BooleanField(default=True, null=True)     
-    observacao = models.TextField(blank=True, null=True)     
+    status_operacional = models.BooleanField(default=True, null=True)    
+    observacao = models.TextField(blank=True, null=True)    
     mac_address = models.CharField(max_length=20, null=True)
-    
-    def __str__(self):         
-        return f"{self.tipo} - {self.localizacao}"
+    valor = models.FloatField(null=True)  
+    timestamp = models.DateTimeField(auto_now_add=True, null=True)  
+    def __str__(self):        
+        return f"Temperatura: {self.valor} °C - {self.timestamp}"
 
 

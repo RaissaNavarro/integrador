@@ -61,7 +61,7 @@ def load_temperature_data(request):
         
         if form.is_valid():
             csv_file = request.FILES['file']
-            
+        
             # Verifica se o arquivo tem a extensão correta
             if not csv_file.name.endswith('.csv'):
                 form.add_error('file', 'Este não é um arquivo CSV válido.')
@@ -69,20 +69,59 @@ def load_temperature_data(request):
                 # Processa o arquivo CSV
                 file_data = csv_file.read().decode('ISO-8859-1').splitlines()
                 reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
-                
+            
                 for row in reader:
                     try:
-                        Sensor.objects.create(
-                            tipo=row['tipo'],
-                            unidade_medida=row['unidade_medida'] if row['unidade_medida'] else None,
-                            latitude=float(row['latitude'].replace(',', '.')),
-                            longitude=float(row['longitude'].replace(',', '.')),
-                            localizacao=row['localizacao'],
-                            responsavel=row['responsavel'] if row['responsavel'] else '',
-                            status_operacional=True if row['status_operacional'] == 'True' else False,
-                            observacao=row['observacao'] if row['observacao'] else '',
-                            mac_address=row['mac_address'] if row['mac_address'] else None
+                    
+                        # Aqui criamos ou atualizamos os dados de temperatura
+                        tipo = row['tipo']
+                        unidade_medida = row['unidade_medida'] if row['unidade_medida'] else None
+                        latitude = float(row['latitude'].replace(',', '.'))
+                        longitude = float(row['longitude'].replace(',', '.'))
+                        localizacao = row['localizacao']
+                        responsavel = row['responsavel'] if row['responsavel'] else ''
+                        status_operacional = True if row['status_operacional'] == 'True' else False
+                        observacao = row['observacao'] if row['observacao'] else ''
+                        mac_address = row['mac_address'] if row['mac_address'] else None
+                        valor = float(row['valor'].replace(',', '.'))
+                        timestamp = row['timestamp']
+                    
+
+                        # Criar ou buscar o sensor
+                        sensor_instance, created = TemperaturaData.objects.get_or_create(
+                            tipo=tipo,
+                            unidade_medida=unidade_medida,
+                            latitude=latitude,
+                            longitude=longitude,
+                            localizacao=localizacao,
+                            responsavel=responsavel,
+                            status_operacional=status_operacional,
+                            observacao=observacao,
+                            mac_address=mac_address,
+                            valor=valor,
+                            timestamp=timestamp
+                        
                         )
+                
+                        # Aqui ta veendo se o timestamp ta no formato certo, caso não ele vai converter
+                        timestamp = parser.parse(timestamp) if isinstance(timestamp, str) else timestamp
+                    
+
+                        TemperaturaData.objects.create(
+                            tipo=tipo,
+                            unidade_medida=unidade_medida,
+                            latitude=latitude,
+                            longitude=longitude,
+                            localizacao=localizacao,
+                            responsavel=responsavel,
+                            status_operacional=status_operacional,
+                            observacao=observacao,
+                            mac_address=mac_address,
+                            valor=valor,
+                            timestamp=timestamp
+                        
+                        )  
+                    
                     except KeyError as e:
                         print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
                 
@@ -96,33 +135,70 @@ def load_contador_data(request):
     if request.method == 'POST':
         form = CSVUploadCont(request.POST, request.FILES)
         
-        if form.is_valid():
-            csv_file = request.FILES['file']
+    if form.is_valid():
+        csv_file = request.FILES['file']
+    
+        # Verifica se o arquivo tem a extensão correta
+        if not csv_file.name.endswith('.csv'):
+            form.add_error('file', 'Este não é um arquivo CSV válido.')
+        else:
+            # Processa o arquivo CSV
+            file_data = csv_file.read().decode('ISO-8859-1').splitlines()
+            reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
+        
+            for row in reader:
+                try:
+                
+                    # Aqui criamos ou atualizamos os dados do contador
+                    tipo = row['tipo']
+                    unidade_medida = row['unidade_medida'] if row['unidade_medida'] else None
+                    latitude = float(row['latitude'].replace(',', '.'))
+                    longitude = float(row['longitude'].replace(',', '.'))
+                    localizacao = row['localizacao']
+                    responsavel = row['responsavel'] if row['responsavel'] else ''
+                    status_operacional = True if row['status_operacional'] == 'True' else False
+                    observacao = row['observacao'] if row['observacao'] else ''
+                    mac_address = row['mac_address'] if row['mac_address'] else None
+                    valor = float(row['valor'].replace(',', '.'))
+                    timestamp = row['timestamp']
+                
+
+                    # Criar ou buscar o sensor
+                    sensor_instance, created = ContadorData.objects.get_or_create(
+                        tipo=tipo,
+                        unidade_medida=unidade_medida,
+                        latitude=latitude,
+                        longitude=longitude,
+                        localizacao=localizacao,
+                        responsavel=responsavel,
+                        status_operacional=status_operacional,
+                        observacao=observacao,
+                        mac_address=mac_address
+                    
+                    )
             
-            # Verifica se o arquivo tem a extensão correta
-            if not csv_file.name.endswith('.csv'):
-                form.add_error('file', 'Este não é um arquivo CSV válido.')
-            else:
-                # Processa o arquivo CSV
-                file_data = csv_file.read().decode('ISO-8859-1').splitlines()
-                reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
+            
+                    timestamp = parser.parse(timestamp) if isinstance(timestamp, str) else timestamp
                 
-                for row in reader:
-                    try:
-                        Sensor.objects.create(
-                            tipo=row['tipo'],
-                            unidade_medida=row['unidade_medida'] if row['unidade_medida'] else None,
-                            latitude=float(row['latitude'].replace(',', '.')),
-                            longitude=float(row['longitude'].replace(',', '.')),
-                            localizacao=row['localizacao'],
-                            responsavel=row['responsavel'] if row['responsavel'] else '',
-                            status_operacional=True if row['status_operacional'] == 'True' else False,
-                            observacao=row['observacao'] if row['observacao'] else '',
-                            mac_address=row['mac_address'] if row['mac_address'] else None
-                        )
-                    except KeyError as e:
-                        print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
+
+                    ContadorData.objects.create(
+                        tipo=tipo,
+                        unidade_medida=unidade_medida,
+                        latitude=latitude,
+                        longitude=longitude,
+                        localizacao=localizacao,
+                        responsavel=responsavel,
+                        status_operacional=status_operacional,
+                        observacao=observacao,
+                        mac_address=mac_address,
+                        valor=valor,
+                        timestamp=timestamp
+                    
+                    )  
                 
+                except KeyError as e:
+                    print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
+            
 
     else:
         form = CSVUploadCont()
@@ -137,7 +213,7 @@ def load_umidade_data(request):
         
         if form.is_valid():
             csv_file = request.FILES['file']
-            
+        
             # Verifica se o arquivo tem a extensão correta
             if not csv_file.name.endswith('.csv'):
                 form.add_error('file', 'Este não é um arquivo CSV válido.')
@@ -145,23 +221,59 @@ def load_umidade_data(request):
                 # Processa o arquivo CSV
                 file_data = csv_file.read().decode('ISO-8859-1').splitlines()
                 reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
-                
+            
                 for row in reader:
                     try:
-                        Sensor.objects.create(
-                            tipo=row['tipo'],
-                            unidade_medida=row['unidade_medida'] if row['unidade_medida'] else None,
-                            latitude=float(row['latitude'].replace(',', '.')),
-                            longitude=float(row['longitude'].replace(',', '.')),
-                            localizacao=row['localizacao'],
-                            responsavel=row['responsavel'] if row['responsavel'] else '',
-                            status_operacional=True if row['status_operacional'] == 'True' else False,
-                            observacao=row['observacao'] if row['observacao'] else '',
-                            mac_address=row['mac_address'] if row['mac_address'] else None
+                    
+                        # Aqui criamos ou atualizamos os dados de temperatura
+                        tipo = row['tipo']
+                        unidade_medida = row['unidade_medida'] if row['unidade_medida'] else None
+                        latitude = float(row['latitude'].replace(',', '.'))
+                        longitude = float(row['longitude'].replace(',', '.'))
+                        localizacao = row['localizacao']
+                        responsavel = row['responsavel'] if row['responsavel'] else ''
+                        status_operacional = True if row['status_operacional'] == 'True' else False
+                        observacao = row['observacao'] if row['observacao'] else ''
+                        mac_address = row['mac_address'] if row['mac_address'] else None
+                        valor = float(row['valor'].replace(',', '.'))
+                        timestamp = row['timestamp']
+                    
+
+                        # Criar ou buscar o sensor
+                        sensor_instance, created = UmidadeData.objects.get_or_create(
+                            tipo=tipo,
+                            unidade_medida=unidade_medida,
+                            latitude=latitude,
+                            longitude=longitude,
+                            localizacao=localizacao,
+                            responsavel=responsavel,
+                            status_operacional=status_operacional,
+                            observacao=observacao,
+                            mac_address=mac_address
+                        
                         )
+
+                        timestamp = parser.parse(timestamp) if isinstance(timestamp, str) else timestamp
+                    
+
+                        UmidadeData.objects.create(
+                            tipo=tipo,
+                            unidade_medida=unidade_medida,
+                            latitude=latitude,
+                            longitude=longitude,
+                            localizacao=localizacao,
+                            responsavel=responsavel,
+                            status_operacional=status_operacional,
+                            observacao=observacao,
+                            mac_address=mac_address,
+                            valor=valor,
+                            timestamp=timestamp
+                        
+                        )  
+                    
                     except KeyError as e:
                         print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
-                
+                    
 
     else:
         form = CSVUploadUmid()
@@ -176,31 +288,67 @@ def load_luminosidade_data(request):
         if form.is_valid():
             csv_file = request.FILES['file']
         
-        # Verifica se o arquivo tem a extensão correta
-        if not csv_file.name.endswith('.csv'):
-            form.add_error('file', 'Este não é um arquivo CSV válido.')
-        else:
-            # Processa o arquivo CSV
-            file_data = csv_file.read().decode('ISO-8859-1').splitlines()
-            reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
+            # Verifica se o arquivo tem a extensão correta
+            if not csv_file.name.endswith('.csv'):
+                form.add_error('file', 'Este não é um arquivo CSV válido.')
+            else:
+                # Processa o arquivo CSV
+                file_data = csv_file.read().decode('ISO-8859-1').splitlines()
+                reader = csv.DictReader(file_data, delimiter=',')  # Altere para ',' se necessário
             
-            for row in reader:
-                try:
-                    Sensor.objects.create(
-                        tipo=row['tipo'],
-                        unidade_medida=row['unidade_medida'] if row['unidade_medida'] else None,
-                        latitude=float(row['latitude'].replace(',', '.')),
-                        longitude=float(row['longitude'].replace(',', '.')),
-                        localizacao=row['localizacao'],
-                        responsavel=row['responsavel'] if row['responsavel'] else '',
-                        status_operacional=True if row['status_operacional'] == 'True' else False,
-                        observacao=row['observacao'] if row['observacao'] else '',
-                        mac_address=row['mac_address'] if row['mac_address'] else None
-                    )
-                except KeyError as e:
-                    print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
-                
+                for row in reader:
+                    try:
+                    
+                        # Aqui criamos ou atualizamos os dados de temperatura
+                        tipo = row['tipo']
+                        unidade_medida = row['unidade_medida'] if row['unidade_medida'] else None
+                        latitude = float(row['latitude'].replace(',', '.'))
+                        longitude = float(row['longitude'].replace(',', '.'))
+                        localizacao = row['localizacao']
+                        responsavel = row['responsavel'] if row['responsavel'] else ''
+                        status_operacional = True if row['status_operacional'] == 'True' else False
+                        observacao = row['observacao'] if row['observacao'] else ''
+                        mac_address = row['mac_address'] if row['mac_address'] else None
+                        valor = float(row['valor'].replace(',', '.'))
+                        timestamp = row['timestamp']
+                    
 
+                        # Criar ou buscar o sensor
+                        sensor_instance, created = LuminosidadeData.objects.get_or_create(
+                            tipo=tipo,
+                            unidade_medida=unidade_medida,
+                            latitude=latitude,
+                            longitude=longitude,
+                            localizacao=localizacao,
+                            responsavel=responsavel,
+                            status_operacional=status_operacional,
+                            observacao=observacao,
+                            mac_address=mac_address
+                        
+                        )
+                
+                        # Aqui ta veendo se o timestamp ta no formato certo, caso não ele vai converter
+                        timestamp = parser.parse(timestamp) if isinstance(timestamp, str) else timestamp
+                    
+
+                        TemperaturaData.objects.create(
+                            tipo=tipo,
+                            unidade_medida=unidade_medida,
+                            latitude=latitude,
+                            longitude=longitude,
+                            localizacao=localizacao,
+                            responsavel=responsavel,
+                            status_operacional=status_operacional,
+                            observacao=observacao,
+                            mac_address=mac_address,
+                            valor=valor,
+                            timestamp=timestamp
+                        
+                        )  
+                    
+                    except KeyError as e:
+                        print(f"Chave não encontrada: {e} na linha: {row}")  # Exibe o erro e a linha problemática
+                
     else:
         form = CSVUploadLumi()
 
