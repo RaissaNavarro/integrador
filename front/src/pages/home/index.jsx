@@ -28,7 +28,6 @@ const Home = () => {
                 </div>
                 <nav className="header-nav">
                     <Link to="/">LOGIN</Link>
-                    <Link to="/areas">Graficos</Link>
                     <Link to="/areas">ÁREAS</Link>
                     <Link to="/dashboard">DASHBOARD</Link>
                     <Link to="/sensores">SENSORES</Link>

@@ -30,6 +30,9 @@ const Luminosidade = () => {
           <Link to="/graficLumi" className="btn-link">
               Visualizar Gráfico
           </Link>
+          <Link to="/home" className="btn-link">
+              Voltar para Home
+          </Link>
       </div>
       <div className="title">
         <h1>Registros de luminosidade</h1>
@@ -74,12 +77,6 @@ const Luminosidade = () => {
           </tbody>
         </table>
       </div>
-      <div className="title">
-          <h1>Informações em Gráfico</h1>
-        </div>
-      <section className="chart-container">
-        < Lumi/>
-      </section>
     </div>
   );
 };

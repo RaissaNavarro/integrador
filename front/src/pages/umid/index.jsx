@@ -30,6 +30,9 @@ const Umidade = () => {
           <Link to="/graficUmi" className="btn-link">
               Visualizar Gráfico
           </Link>
+          <Link to="/home" className="btn-link">
+              Voltar para Home
+          </Link>
       </div>
       <div className="title">
         <h1>Registros de Umidade</h1>
@@ -74,12 +77,6 @@ const Umidade = () => {
           </tbody>
         </table>
       </div>
-      <div className="title">
-          <h1>Informações em Gráfico</h1>
-        </div>
-      <section className="chart-container">
-        < Umi/>
-      </section>
     </div>
   );
 };

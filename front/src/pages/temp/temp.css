@@ -1,5 +1,7 @@
 .cabecalho-button{
-  padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
 }
 
 .btn-link{

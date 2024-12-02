@@ -30,6 +30,9 @@ const Temperatura = () => {
           <Link to="/graficTemp" className="btn-link">
               Visualizar Gráfico
           </Link>
+          <Link to="/home" className="btn-link">
+              Voltar para Home
+          </Link>
       </div>
       <div className="title">
         <h1>Temperaturas Registradas</h1>
@@ -74,12 +77,6 @@ const Temperatura = () => {
           </tbody>
         </table>
       </div>
-      <div className="title">
-          <h1>Informações em Gráfico</h1>
-        </div>
-      <section className="chart-container">
-        < Temp/>
-      </section>
     </div>
   );
 };
