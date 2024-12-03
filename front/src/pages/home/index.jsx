@@ -34,7 +34,7 @@ const Home = () => {
                 </nav>
                 <div className="header-user">
                     <div className="login-icon">
-                        <p>{loggedInUser}</p> {/* Exibe o nome do usuário logado */}
+                        <p>{loggedInUser}</p> {/* Exibe o nome do usuário logado */}    
                     </div>
                     <img src={UserImg} alt="User Icon" className="user-icon" />
                 </div>
