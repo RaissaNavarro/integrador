@@ -94,11 +94,12 @@
   background-color: #0056b3;
 }
 
-.right-section .login-link {
+.right-section .signup-link {
   color: #007bff;
   text-decoration: none;
 }
 
-.right-section .login-link:hover {
+.right-section .signup-link:hover{
   text-decoration: underline;
 }
+
