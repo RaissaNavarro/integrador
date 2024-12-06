@@ -3,7 +3,7 @@
     margin: 15px auto; 
     overflow-y: auto; 
     overflow-x: hidden; 
-    max-height: 660px; 
+    max-height: 550px;
     border: 1px solid #ccc; 
   }
   
@@ -21,12 +21,11 @@
   th, td {
     padding: 8px 12px;
     text-align: left;
-    border: 1px solid #007bff;
     font-size: 18px;
   }
   
   th {
-    background-color: #007bff;
+    background-color: #042d62;
     color: white;
     font-weight: 600;
   }

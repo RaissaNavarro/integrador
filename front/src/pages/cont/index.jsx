@@ -27,12 +27,12 @@ const Contador = () => {
   return (
     <div>
       <div className="cabecalho-button">
-        <Link to="/graficCont" className="btn-link">
-          Visualizar Gráfico
-        </Link>
         <Link to="/home" className="btn-link">
               Voltar para Home
           </Link>
+        <Link to="/graficCont" className="btn-link">
+          Visualizar Gráfico
+        </Link>
       </div>
       <div className="title">
         <h1>Registros do Contador</h1>

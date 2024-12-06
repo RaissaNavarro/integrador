@@ -27,11 +27,11 @@ const Luminosidade = () => {
   return (
     <div>
       <div className="cabecalho-button">
-          <Link to="/graficLumi" className="btn-link">
-              Visualizar Gráfico
-          </Link>
           <Link to="/home" className="btn-link">
               Voltar para Home
+          </Link>
+          <Link to="/graficLumi" className="btn-link">
+              Visualizar Gráfico
           </Link>
       </div>
       <div className="title">
