@@ -58,8 +58,8 @@ const Home = () => {
                     <img src={CityImg} alt="Cidade Inteligente" className="city-image" />
                 </section>
 
-                <section className="sensor-section">
-                    <h2 className="sensor-title">Sensores Disponíveis</h2>
+                <section className="sensor-section-home">
+                    <h2 className="sensor-title-home">Sensores Disponíveis</h2>
                     <div className="sensor-list">
                         <div className="sensor-card">
                         {/* <img src={TempImg} alt="img temperatura" className="img-temp" /> */}
