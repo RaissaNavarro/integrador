@@ -11,6 +11,7 @@ import Tempgrafic from "./pages/graficos/graficTemp.jsx";
 import Contgrafic from "./pages/graficos/graficCont.jsx";
 import Lumigrafic from "./pages/graficos/graficLumi.jsx";
 import Umigrafic from "./pages/graficos/graficUmi.jsx";
+import ShowSensor from "./pages/sensores/sensor.jsx";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/graficCont" element={<Contgrafic/>} />
         <Route path="/graficLumi" element={<Lumigrafic/>} />
         <Route path="/graficUmi" element={<Umigrafic/>} />
+        <Route path="/sensores" element={<ShowSensor/>} />
         
       </Routes>
     </Router>
