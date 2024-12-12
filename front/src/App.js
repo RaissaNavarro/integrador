@@ -12,24 +12,24 @@ import Contgrafic from "./pages/graficos/graficCont.jsx";
 import Lumigrafic from "./pages/graficos/graficLumi.jsx";
 import Umigrafic from "./pages/graficos/graficUmi.jsx";
 import ShowSensor from "./pages/sensores/sensor.jsx";
+import PrivateRoute from "./componentes/Routeprivate.js";
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/temperatura" element={<Temp />} />
-        <Route path="/contador" element={<Contador/>} />
-        <Route path="/umidade" element={<Umidade/>} />
-        <Route path="/luminosidade" element={<Luminosidade/>} />
+        <Route path="/home" element={<PrivateRoute component={Home} />} />
+        <Route path="/temperatura" element={<PrivateRoute component={Temp} />} />
+        <Route path="/contador" element={<PrivateRoute component={Contador} />} />
+        <Route path="/umidade" element={<PrivateRoute component={Umidade} />} />
+        <Route path="/luminosidade" element={<PrivateRoute component={Luminosidade} />} />
         <Route path="/login/up" element={<LoginUp />} />
         <Route path="/graficTemp" element={<Tempgrafic/>} />"
         <Route path="/graficCont" element={<Contgrafic/>} />
         <Route path="/graficLumi" element={<Lumigrafic/>} />
         <Route path="/graficUmi" element={<Umigrafic/>} />
-        <Route path="/sensores" element={<ShowSensor/>} />
-        
+        <Route path="/sensores" element={<PrivateRoute component={ShowSensor} />} />
       </Routes>
     </Router>
   );
