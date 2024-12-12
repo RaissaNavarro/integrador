@@ -13,7 +13,7 @@ import Lumigrafic from "./pages/graficos/graficLumi.jsx";
 import Umigrafic from "./pages/graficos/graficUmi.jsx";
 import ShowSensor from "./pages/sensores/sensor.jsx";
 import PrivateRoute from "./componentes/Routeprivate.js";
-
+import Dashboard from "./pages/dashboard/dashboard.jsx";
 const App = () => {
   return (
     <Router>
@@ -30,6 +30,7 @@ const App = () => {
         <Route path="/graficLumi" element={<Lumigrafic/>} />
         <Route path="/graficUmi" element={<Umigrafic/>} />
         <Route path="/sensores" element={<PrivateRoute component={ShowSensor} />} />
+        <Route path="/dashboard" element={<PrivateRoute component={Dashboard} />} />
       </Routes>
     </Router>
   );
