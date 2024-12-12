@@ -10,6 +10,7 @@ import UserImg from "../../images/UserIcon.png"
 import UmiImg from "../../images/umidade.png"
 import LumiImg from "../../images/luminosidade.png"
 import ContImg from "../../images/contador.png"
+import ExitButton from "../../componentes/SairButton";
 
 const ShowSensor = () => {
     return (
@@ -29,13 +30,13 @@ const ShowSensor = () => {
                         <p>{loggedInUser}</p>
                     </div>
                     <img src={UserImg} alt="User Icon" className="user-icon" />
+                    <ExitButton/>
                 </div>
             </header>
         
             <h1>Bem-vindo à Home!</h1>
             <p>Você fez login com sucesso.</p>
-
-            {/* Informações dos sensores com layout alternado */}
+            
             <div className="sensor-info">
                 <div className="sensor-section left">
                     <img src={ImgTemp} alt="Sensor de Temperatura" />

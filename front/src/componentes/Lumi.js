@@ -9,8 +9,6 @@ const ChartComponent = () => {
       const response = await axios.get("http://127.0.0.1:8000/api/luminosidade/")
       const idCount= response.data.length;
      
-      // console.log(idCount);
-      // console.log("Response: ", response.data[len]["valor"])
       const options = {
        
         series: [{
@@ -31,17 +29,19 @@ const ChartComponent = () => {
         curve: 'straight'
       },
       title: {
-        text: 'Valores de Temperatura por Mês',
+        text: 'Valores de Luminosidade por Mês',
         align: 'left'
       },
       grid: {
         row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          colors: ['#f3f3f3', 'transparent'], 
           opacity: 0.5
         },
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+        categories:  ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out',
+          'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out'
+         ],
       }
       };
       for (let i = 0; i < idCount; i++){

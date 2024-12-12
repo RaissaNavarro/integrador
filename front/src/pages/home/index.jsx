@@ -4,6 +4,7 @@ import "./index.css";
 import CityImg from "../../images/city.png"; // Substituir pela imagem de cidade inteligente
 import LogoImg from "../../images/Logo.png";
 import UserImg from "../../images/UserIcon.png";
+import ExitButton from "../../componentes/SairButton";
 // import TempImg from "../../images/temperatura.png"
 
 const Home = () => {
@@ -35,6 +36,7 @@ const Home = () => {
                         <p>{loggedInUser}</p>
                     </div>
                     <img src={UserImg} alt="User Icon" className="user-icon" />
+                    < ExitButton />
                 </div>
             </header>
 

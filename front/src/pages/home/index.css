@@ -150,6 +150,17 @@ body {
     background-color: #0056b3;
 }
 
+.exit-button{
+    width: 50%;
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: "Poppins";
+    cursor: pointer;
+}
+
 .footer {
     background-color: #042d62;
     color: white;

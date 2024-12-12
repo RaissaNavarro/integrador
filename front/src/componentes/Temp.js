@@ -10,8 +10,6 @@ const ChartComponent = () => {
       const response = await axios.get("http://127.0.0.1:8000/api/temperatura/")
       const idCount= response.data.length;
      
-      // console.log(idCount);
-      // console.log("Response: ", response.data[len]["valor"])
       const options = {
        
         series: [{
