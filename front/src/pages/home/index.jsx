@@ -5,7 +5,6 @@ import CityImg from "../../images/city.png"; // Substituir pela imagem de cidade
 import LogoImg from "../../images/Logo.png";
 import UserImg from "../../images/UserIcon.png";
 import ExitButton from "../../componentes/SairButton";
-// import TempImg from "../../images/temperatura.png"
 
 const Home = () => {
     const [token, setToken] = useState(localStorage.getItem("accessToken"));

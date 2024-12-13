@@ -7,6 +7,7 @@ import LogoImg from "../../images/Logo.png";
 import loggedInUser from "../home/index";
 import UserImg from "../../images/UserIcon.png";
 import ExitButton from "../../componentes/SairButton";
+import Polar from "../../componentes/Polar";
 
 
 const Dashboard = () => {
@@ -31,6 +32,10 @@ const Dashboard = () => {
                     <ExitButton/>
                 </div>
             </header>
+        <section className="grafics">
+            <Polar />
+        </section>
+
         </div>
     );
 }

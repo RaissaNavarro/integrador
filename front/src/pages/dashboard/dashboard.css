@@ -62,3 +62,18 @@ body {
     z-index: 999; /* Coloca a linha logo abaixo do cabeçalho */
     background-color: #042d62;  
 }
+
+.polar-grafic{
+    padding-top: 130px;
+}
+
+.timeline-grafic{
+    width: 20%;
+}
+
+.grafics{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
